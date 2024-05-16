@@ -2,14 +2,14 @@ package main
 
 import (
 	"fmt"
+	"time"
 	// "time"
 )
 
-// ===== Go Routines ===== 
+// ===== Go Routines =====
 // func someFunc(num string) {
 // 	fmt.Println(num)
 // }
-
 
 // func main() {
 
@@ -23,25 +23,56 @@ import (
 
 // }
 
-
 // ===== Channels =====
+// func main() {
+// 	myChannel := make(chan string)
+// 	anotherChannel := make(chan string)
+
+// 	go func() {
+// 		myChannel <- "data"
+// 	}()
+
+// 	go func() {
+// 		anotherChannel <- "cow"
+// 	}()
+
+// 	select {
+// 	case msgFromMyChannel := <- myChannel:
+// 		fmt.Println(msgFromMyChannel)
+// 	case msgFromAnotherChannel := <- anotherChannel:
+// 		fmt.Println(msgFromAnotherChannel)
+// 	}
+// }
+
+// For-Select Loop Ex 1
+// func main() {
+// 	charChannel := make(chan string, 3)
+// 	chars := []string{"a", "b", "c"}
+
+// 	for _, s := range chars {
+// 		select {
+// 		case charChannel <- s:
+// 		}
+// 	}
+
+// 	close(charChannel)
+
+// 	for result := range charChannel {
+// 		fmt.Println(result)
+// 	}
+
+// }
+
+// For-Select Loop Ex 2
 func main() {
-	myChannel := make(chan string)
-	anotherChannel := make(chan string)
-
 	go func() {
-		myChannel <- "data"
+		for {
+			select {
+			default:
+				fmt.Println("DOING WORK")
+			}
+		}
 	}()
 
-
-	go func() {
-		anotherChannel <- "cow"
-	}()
-
-	select {
-	case msgFromMyChannel := <- myChannel:
-		fmt.Println(msgFromMyChannel)
-	case msgFromAnotherChannel := <- anotherChannel:
-		fmt.Println(msgFromAnotherChannel)
-	}
+	time.Sleep(time.Second * 3)
 }
