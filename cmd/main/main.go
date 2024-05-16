@@ -2,22 +2,37 @@ package main
 
 import (
 	"fmt"
-	"time"
+	// "time"
 )
 
-func someFunc(num string) {
-	fmt.Println(num)
-}
+// ===== Go Routines ===== 
+// func someFunc(num string) {
+// 	fmt.Println(num)
+// }
 
 
+// func main() {
+
+// 	go someFunc("1")
+// 	go someFunc("2")
+// 	go someFunc("3")
+
+// 	time.Sleep(time.Second * 2)
+
+// 	fmt.Println("hi")
+
+// }
+
+
+// ===== Channels =====
 func main() {
+	myChannel := make(chan string)
 
-	go someFunc("1")
-	go someFunc("2")
-	go someFunc("3")
+	go func() {
+		myChannel <- "data"
+	}()
 
-	time.Sleep(time.Second * 2)
+	msg := <- myChannel
 
-	fmt.Println("hi")
-
+	fmt.Println(msg)
 }
